@@ -1,0 +1,15 @@
+# Directories
+/.idea
+/api
+/docs
+/public
+/output
+/vendor
+
+# Files
+composer.phar
+test.php
+.phpintel
+.env
+.phpunit.result.cache
+.cache
