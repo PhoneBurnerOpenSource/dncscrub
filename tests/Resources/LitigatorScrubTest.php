@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 class LitigatorScrubTest extends TestCase
 {
     private SUT $sut;
-    private string $server = 'https://www.dncscrub.com';
+    private string $server = 'https://api.dncscrub.com';
 
     public function setUp(): void
     {
@@ -52,7 +52,7 @@ class LitigatorScrubTest extends TestCase
         $phones = [$phone];
 
         $results = $this->sut->withPhones($phones)->request();
-        $this->assertEquals($code, $results[$phone]);
+        self::assertEquals($code, $results[$phone]);
     }
 
     public function phoneNumberDataProvider(): ?\Generator

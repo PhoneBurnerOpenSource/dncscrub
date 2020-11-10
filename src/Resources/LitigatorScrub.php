@@ -38,7 +38,7 @@ class LitigatorScrub extends Resource
     {
         $rows = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
         foreach ($rows as $row) {
-            $this->results[$row->Phone] = $row->IsLitigator;
+            $this->results[$row['Phone']] = (bool)$row['IsLitigator'];
         }
     }
 }
