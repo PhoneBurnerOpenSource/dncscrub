@@ -59,7 +59,6 @@ class Client
         }
         $url = $this->server . $endpoint;
         try {
-            print "$url\n";print_r($options);
             $request = $this->client->request($method, $url, $options);
             return [$request->getStatusCode(), $request->getBody()->getContents()];
         } catch (BadResponseException $e) {

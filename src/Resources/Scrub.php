@@ -1,5 +1,6 @@
 <?php namespace PhoneBurner\DNCScrub\Resources;
 
+use GuzzleHttp\Exception\GuzzleException;
 use PhoneBurner\DNCScrub\Exceptions\BadRequest;
 use PhoneBurner\DNCScrub\Result;
 
@@ -27,7 +28,7 @@ class Scrub extends Resource
 
     /**
      * @throws BadRequest
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function request(): array
     {

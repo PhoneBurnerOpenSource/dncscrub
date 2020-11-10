@@ -1,19 +1,21 @@
 <?php namespace PhoneBurner\DNCScrub\Resources;
 
 use GuzzleHttp\Exception\GuzzleException;
+use JsonException;
 use PhoneBurner\DNCScrub\Exceptions\BadRequest;
 
 class LitigatorScrub extends Resource
 {
     use WithPhones;
 
-    private $endpoint = '/apiLatest/scrub/litigator';
-    private $valid_response = false;
-    private $results;
+    private string $endpoint = '/apiLatest/scrub/litigator';
+
+    private array $results = [];
 
     /**
      * @throws BadRequest
      * @throws GuzzleException
+     * @throws JsonException
      */
     public function request(): array
     {
@@ -32,10 +34,9 @@ class LitigatorScrub extends Resource
         throw new BadRequest('Bad request', $response_code);
     }
 
-    private function parseBody($body)
+    private function parseBody(string $body): void
     {
-        $this->valid_response = true;
-        $rows = json_decode($body);
+        $rows = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
         foreach ($rows as $row) {
             $this->results[$row->Phone] = $row->IsLitigator;
         }
