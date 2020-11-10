@@ -25,7 +25,7 @@ class Factory
     {
         $this->login_id = $login_id;
         $this->project_id = $project_id;
-        $server = $server ?: 'https://api.dncscrub.com';
+        $server = $server ?: 'https://www.dncscrub.com';
 
         $this->client = $client ?? new Client($server, [
             'login_id' => $this->login_id,

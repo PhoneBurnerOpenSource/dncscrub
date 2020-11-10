@@ -10,9 +10,8 @@ use PHPUnit\Framework\TestCase;
 
 class LitigatorScrubTest extends TestCase
 {
-    /** @var SUT */
-    private $sut;
-    private $server = 'https://api.dncscrub.com';
+    private SUT $sut;
+    private string $server = 'https://www.dncscrub.com';
 
     public function setUp(): void
     {
