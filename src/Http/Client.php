@@ -52,10 +52,14 @@ class Client
         $options['form_params']['projId'] = $this->project_id;
 
         if ($method === 'get') {
-            $endpoint .= '&projId=' . $this->project_id;
+            $endpoint .= strpos($endpoint, '?') ? '&' : '?';
+            foreach ($options['form_params'] as $key => $value) {
+                $endpoint .= $key . '=' . $value . '&';
+            }
         }
         $url = $this->server . $endpoint;
         try {
+            print "$url\n";print_r($options);
             $request = $this->client->request($method, $url, $options);
             return [$request->getStatusCode(), $request->getBody()->getContents()];
         } catch (BadResponseException $e) {
