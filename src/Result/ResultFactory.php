@@ -2,6 +2,7 @@
 
 namespace PhoneBurner\DNCScrub\Result;
 
+use FilesystemIterator;
 use RuntimeException;
 
 class ResultFactory
@@ -16,26 +17,16 @@ class ResultFactory
         throw new RuntimeException('Invalid Result: ' . $status);
     }
 
-    public function getResults(): array
+    public function getPossibleResults(): array
     {
-        return [
-            new B(),
-            new C(),
-            new D(),
-            new E(),
-            new F(),
-            new G(),
-            new H(),
-            new I(),
-            new L(),
-            new M(),
-            new O(),
-            new P(),
-            new R(),
-            new V(),
-            new W(),
-            new X(),
-            new Y(),
-        ];
+        $path = __DIR__;
+        $classes = [];
+        foreach (new FilesystemIterator($path) as $file) {
+            $classname = '\\PhoneBurner\\DNCScrub\\Result\\' . $file->getBasename('.php');
+            if (is_subclass_of($classname, ResultCode::class, true)) {
+                $classes[] = new $classname;
+            }
+        }
+        return $classes;
     }
 }
