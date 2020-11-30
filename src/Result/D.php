@@ -4,7 +4,7 @@ namespace PhoneBurner\DNCScrub\Result;
 
 use ReflectionClass;
 
-class D implements ResultCode, NumberBlockedDoNotCall
+class D implements ResultCode, NumberBlockedDoNotCall, NumberCanNotBeCalled
 {
     final public function getDescription(): string
     {
