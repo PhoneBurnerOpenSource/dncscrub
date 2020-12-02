@@ -15,9 +15,10 @@ class Project extends Resource
             throw new BadRequest('Bad request', 401);
         }
 
-        print "Result: $response_code\n";
-        print "BODY:\n";
-        print $body;
-        return [$response_code, $body];
+        if ((int)$response_code === 200) {
+            return [$response_code, $body];
+        }
+
+        throw new BadRequest('Bad request', $response_code);
     }
 }
