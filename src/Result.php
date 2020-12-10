@@ -23,6 +23,10 @@ class Result
     private string $doNotCallToday;
     private string $callingTimeRestrictions;
     private string $phone;
+    private string $countryDNC;
+    private string $stateDNC;
+    private string $tpsDNC;
+    private string $wirelessDetails;
 
     private function __construct(
         string $phone,
@@ -41,10 +45,18 @@ class Result
         string $callingTimeRestrictions
     )
     {
+        [$country_dnc, $state_dnc, $tps_dnc, $wireless] = explode(';', $reason);
         $this->phone = $phone;
         $this->resultCode = $resultCode;
         $this->date = $date;
-        $this->reason = $reason;
+        $this->reason = '';
+        if ($country_dnc) {
+            $this->reason .= $country_dnc;
+        }
+        $this->countryDNC = $country_dnc;
+        $this->stateDNC = $state_dnc;
+        $this->tpsDNC = $tps_dnc;
+        $this->wirelessDetails = $wireless;
         $this->region = $region;
         $this->country = $country;
         $this->locale = $locale;
@@ -147,5 +159,25 @@ class Result
     public function getCallingTimeRestrictions(): string
     {
         return $this->callingTimeRestrictions;
+    }
+
+    public function getCountryDNC(): string
+    {
+        return $this->countryDNC;
+    }
+
+    public function getStateDNC(): string
+    {
+        return $this->stateDNC;
+    }
+
+    public function getTpsDNC(): string
+    {
+        return $this->tpsDNC;
+    }
+
+    public function getWirelessDetails(): string
+    {
+        return $this->wirelessDetails;
     }
 }
