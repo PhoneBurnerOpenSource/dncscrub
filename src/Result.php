@@ -53,10 +53,10 @@ class Result
         if ($country_dnc) {
             $this->reason .= $country_dnc;
         }
-        $this->countryDNC = $country_dnc;
-        $this->stateDNC = $state_dnc;
-        $this->tpsDNC = $tps_dnc;
-        $this->wirelessDetails = $wireless;
+        $this->countryDNC = $country_dnc ?? "";
+        $this->stateDNC = $state_dnc ?? "";
+        $this->tpsDNC = $tps_dnc ?? "";
+        $this->wirelessDetails = $wireless ?? "";
         $this->region = $region;
         $this->country = $country;
         $this->locale = $locale;
