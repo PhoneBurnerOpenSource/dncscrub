@@ -7,13 +7,14 @@ use RuntimeException;
 
 class Factory
 {
-    public function make(string $name, string $login_id, string $project_id, Client $client = null)
+    public function make(string $name, string $login_id, string $project_id, float $timeout = 5, Client $client = null)
     {
         $server = 'https://www.dncscrub.com';
 
         $client = $client ?? new Client($server, [
             'login_id' => $login_id,
-            'project_id' => $project_id
+            'project_id' => $project_id,
+            'timeout' => $timeout,
         ]);
 
         $resource = 'PhoneBurner\\DNCScrub\\Resources\\' . ucfirst($name);

@@ -29,6 +29,7 @@ class Client
     {
         $this->login_id = $config['login_id'];
         $this->project_id = $config['project_id'];
+        $timeout = $config['timeout'] ?? 5;
 
         if (!$this->login_id) {
             throw new InvalidArgument('Missing login id');
@@ -38,7 +39,7 @@ class Client
             throw new InvalidArgument('Missing project id');
         }
 
-        $this->client = $client ?? new GuzzleClient(['timeout' => 5]);
+        $this->client = $client ?? new GuzzleClient(['timeout' => (float)$timeout]);
         $this->server = $server ?: 'https://www.dncscrub.com';
     }
 
