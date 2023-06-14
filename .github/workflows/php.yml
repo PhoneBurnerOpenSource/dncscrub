@@ -7,8 +7,8 @@ on:
     branches: [ main ]
 
 env:
-  DNCSCRUB_PROJECT_ID: ${{ vars.PROJECT_ID }}
-  DNCSCRUB_LOGIN_ID: ${{ vars.LOGIN_ID }}
+  DNCSCRUB_PROJECT_ID: ${{ vars.DNCSCRUB_PROJECT_ID }}
+  DNCSCRUB_LOGIN_ID: ${{ vars.DNCSCRUB_LOGIN_ID }}
 
 jobs:
   build:
