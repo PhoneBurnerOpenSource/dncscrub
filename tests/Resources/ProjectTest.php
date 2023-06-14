@@ -48,8 +48,8 @@ class ProjectTest extends TestCase
         $this->client = $this->prophesize(Client::class);
 
         $this->project = new Project(new Client($this->server, [
-            'login_id' => (string)\getenv('DNCSCRUB_LOGIN_ID'),
-            'project_id' => (string)\getenv('DNCSCRUB_PROJECT_ID'),
+            'login_id' => 'DNCSCRUB_LOGIN_ID',
+            'project_id' => 'DNCSCRUB_PROJECT_ID',
         ]));
     }
 
@@ -58,7 +58,7 @@ class ProjectTest extends TestCase
         $this->expectException(InvalidArgument::class);
         new Project(new Client($this->server, [
             'login_id' => '',
-            'project_id' => (string)\getenv('DNCSCRUB_PROJECT_ID'),
+            'project_id' => 'DNCSCRUB_PROJECT_ID',
         ]));
     }
 
@@ -66,7 +66,7 @@ class ProjectTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
         new Project(new Client($this->server, [
-            'login_id' => (string)\getenv('DNCSCRUB_LOGIN_ID'),
+            'login_id' => 'DNCSCRUB_LOGIN_ID',
             'project_id' => '',
         ]));
     }
@@ -77,7 +77,7 @@ class ProjectTest extends TestCase
         $this->expectExceptionCode(401);
         $project = new Project(new Client($this->server, [
             'login_id' => 'PURPOSELY_BAD_LOGIN_ID_FOR_TESTING',
-            'project_id' => (string)\getenv('DNCSCRUB_PROJECT_ID'),
+            'project_id' => 'DNCSCRUB_PROJECT_ID',
         ]));
         $project->request();
     }
