@@ -6,11 +6,15 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  DNCSCRUB_PROJECT_ID: ${{ vars.PROJECT_ID }}
+  DNCSCRUB_LOGIN_ID: ${{ vars.LOGIN_ID }}
+
 jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    environment: workflow
     steps:
     - uses: actions/checkout@v2
 
@@ -31,9 +35,6 @@ jobs:
       run: composer install --prefer-dist --no-progress --no-suggest
 
     - name: Run unit tests
-      env:
-        DNCSCRUB_PROJECT_ID: ${{ secrets.PROJECT_ID }}
-        DNCSCRUB_LOGIN_ID: ${{ secrets.LOGIN_ID }}
       run: vendor/bin/phpunit
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
