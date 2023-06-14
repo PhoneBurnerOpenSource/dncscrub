@@ -55,7 +55,7 @@ class ScrubTest extends TestCase
         $this->expectException(InvalidArgument::class);
         $this->scrub = new Scrub(new Client($this->server, [
             'login_id' => '',
-            'project_id' => (string)\getenv('DNCSCRUB_PROJECT_ID'),
+            'project_id' => 'PROJECT_ID',
         ]));
     }
 
@@ -63,7 +63,7 @@ class ScrubTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
         $this->scrub = new Scrub(new Client($this->server, [
-            'login_id' => (string)\getenv('DNCSCRUB_LOGIN_ID'),
+            'login_id' => 'DNCSCRUB_LOGIN_ID',
             'project_id' => '',
         ]));
     }
@@ -74,7 +74,7 @@ class ScrubTest extends TestCase
         $this->expectExceptionCode(401);
         $scrub = new Scrub(new Client($this->server, [
             'login_id' => 'PURPOSELY_BAD_LOGIN_ID_FOR_TESTING',
-            'project_id' => (string)\getenv('DNCSCRUB_PROJECT_ID'),
+            'project_id' => 'DNCSCRUB_PROJECT_ID',
         ]));
         $phone = '8883699131';
         $scrub->withPhones([$phone])->request();
