@@ -47,7 +47,7 @@ class LitigatorScrubTest extends TestCase
         $this->expectException(InvalidArgument::class);
         $this->sut = new SUT(new Client($this->server, [
             'login_id' => '',
-            'project_id' => (string)\getenv('DNCSCRUB_PROJECT_ID'),
+            'project_id' => 'DNCSCRUB_PROJECT_ID',
         ]));
     }
 
@@ -55,7 +55,7 @@ class LitigatorScrubTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
         $this->sut = new SUT(new Client($this->server, [
-            'login_id' => (string)\getenv('DNCSCRUB_LOGIN_ID'),
+            'login_id' => 'DNCSCRUB_LOGIN_ID',
             'project_id' => '',
         ]));
     }
@@ -66,7 +66,7 @@ class LitigatorScrubTest extends TestCase
         $this->expectExceptionCode(401);
         $sut = new SUT(new Client($this->server, [
             'login_id' => 'PURPOSELY_BAD_LOGIN_ID_FOR_TESTING',
-            'project_id' => (string)\getenv('DNCSCRUB_PROJECT_ID'),
+            'project_id' => 'DNCSCRUB_PROJECT_ID',
         ]));
         $phone = '8883699131';
         $sut->withPhones([$phone])->request();
