@@ -1,8 +1,24 @@
 <?php
 
+/**
+ * Copyright 2023 PhoneBurner
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+declare(strict_types=1);
 
 namespace PhoneBurner\DNCScrub;
-
 
 use PhoneBurner\DNCScrub\Result\ResultCode;
 use PhoneBurner\DNCScrub\Result\ResultFactory;
@@ -10,22 +26,39 @@ use PhoneBurner\DNCScrub\Result\ResultFactory;
 class Result
 {
     private ResultCode $resultCode;
+
     private string $date;
+
     private string $reason;
+
     private string $region;
+
     private string $country;
+
     private string $locale;
+
     private string $carrier;
+
     private string $newReassignedAreaCode;
+
     private string $timeZoneCode;
+
     private string $callingWindow;
+
     private string $utcOffset;
+
     private string $doNotCallToday;
+
     private string $callingTimeRestrictions;
+
     private string $phone;
+
     private string $countryDNC;
+
     private string $stateDNC;
+
     private string $tpsDNC;
+
     private string $wirelessDetails;
 
     private function __construct(
@@ -43,9 +76,8 @@ class Result
         string $utcOffset,
         string $doNotCallToday,
         string $callingTimeRestrictions
-    )
-    {
-        [$country_dnc, $state_dnc, $tps_dnc, $wireless] = explode(';', $reason);
+    ) {
+        [$country_dnc, $state_dnc, $tps_dnc, $wireless] = \explode(';', $reason) + [null, null, null, null];
         $this->phone = $phone;
         $this->resultCode = $resultCode;
         $this->date = $date;
@@ -53,6 +85,7 @@ class Result
         if ($country_dnc) {
             $this->reason .= $country_dnc;
         }
+
         $this->countryDNC = $country_dnc ?? "";
         $this->stateDNC = $state_dnc ?? "";
         $this->tpsDNC = $tps_dnc ?? "";
@@ -71,23 +104,23 @@ class Result
 
     public static function fromCSV(string $row): self
     {
-        $data = str_getcsv($row);
+        $data = \str_getcsv($row);
         $result_factory = new ResultFactory();
         return new self(
-            $data[0],
-            $result_factory->make($data[1]),
-            $data[2],
-            $data[3],
-            $data[4],
-            $data[5],
-            $data[6],
-            $data[7],
-            $data[8],
-            $data[9],
-            $data[10],
-            $data[11],
-            $data[12],
-            $data[13],
+            (string)$data[0],
+            $result_factory->make((string)$data[1]),
+            (string)$data[2],
+            (string)$data[3],
+            (string)$data[4],
+            (string)$data[5],
+            (string)$data[6],
+            (string)$data[7],
+            (string)$data[8],
+            (string)$data[9],
+            (string)$data[10],
+            (string)$data[11],
+            (string)$data[12],
+            (string)$data[13],
         );
     }
 
