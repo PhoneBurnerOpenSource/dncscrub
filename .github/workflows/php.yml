@@ -34,7 +34,11 @@ jobs:
       env:
         DNCSCRUB_PROJECT_ID: ${{ secrets.DNCSCRUB_PROJECT_ID }}
         DNCSCRUB_LOGIN_ID: ${{ secrets.DNCSCRUB_LOGIN_ID }}
-      run: vendor/bin/phpunit
+      run: |
+        touch .env
+        echo DNCSCRUB_PROJECT_ID=${{ secrets.DNCSCRUB_PROJECT_ID }} >> .env
+        echo DNCSCRUB_LOGIN_ID=${{ secrets.DNCSCRUB_LOGIN_ID }} >> .env
+        vendor/bin/phpunit
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
