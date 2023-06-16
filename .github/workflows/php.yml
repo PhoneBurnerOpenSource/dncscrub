@@ -10,7 +10,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    environment: workflow
     steps:
     - uses: actions/checkout@v2
 
@@ -32,9 +32,13 @@ jobs:
 
     - name: Run unit tests
       env:
-        DNCSCRUB_PROJECT_ID: ${{ secrets.PROJECT_ID }}
-        DNCSCRUB_LOGIN_ID: ${{ secrets.LOGIN_ID }}
-      run: vendor/bin/phpunit
+        DNCSCRUB_PROJECT_ID: ${{ secrets.DNCSCRUB_PROJECT_ID }}
+        DNCSCRUB_LOGIN_ID: ${{ secrets.DNCSCRUB_LOGIN_ID }}
+      run: |
+        touch .env
+        echo DNCSCRUB_PROJECT_ID=${{ secrets.DNCSCRUB_PROJECT_ID }} >> .env
+        echo DNCSCRUB_LOGIN_ID=${{ secrets.DNCSCRUB_LOGIN_ID }} >> .env
+        vendor/bin/phpunit
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
